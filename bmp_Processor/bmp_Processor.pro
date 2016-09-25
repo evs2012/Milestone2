@@ -20,3 +20,5 @@ HEADERS  += mainwindow.h \
     bmp_file.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES +=

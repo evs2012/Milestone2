@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -25,8 +26,10 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionLoad_Bitmap;
     QWidget *centralWidget;
     QMenuBar *menuBar;
+    QMenu *menuFile;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -35,12 +38,16 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(400, 300);
+        actionLoad_Bitmap = new QAction(MainWindow);
+        actionLoad_Bitmap->setObjectName(QStringLiteral("actionLoad_Bitmap"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -48,6 +55,9 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionLoad_Bitmap);
 
         retranslateUi(MainWindow);
 
@@ -57,6 +67,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        actionLoad_Bitmap->setText(QApplication::translate("MainWindow", "Load Bitmap...", 0));
+#ifndef QT_NO_TOOLTIP
+        actionLoad_Bitmap->setToolTip(QApplication::translate("MainWindow", "Browse for a bitmap file for the program to process.", 0));
+#endif // QT_NO_TOOLTIP
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 
 };

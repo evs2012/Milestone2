@@ -1,3 +1,6 @@
+# Qt Autosaves
+*.autosave
+
 # Bitmaps
 *.bmp
 

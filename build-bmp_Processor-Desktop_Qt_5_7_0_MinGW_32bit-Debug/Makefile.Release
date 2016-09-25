@@ -466,14 +466,22 @@ release/mainwindow.o: ../bmp_Processor/mainwindow.cpp ../bmp_Processor/mainwindo
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qstyle.h \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qtabbar.h \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qrubberband.h \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QMenu \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qmenu.h \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QMenuBar \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qmenubar.h \
-		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qmenu.h \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QStatusBar \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qstatusbar.h \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QToolBar \
 		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qtoolbar.h \
-		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QWidget
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qdialog.h \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/QMessageBox \
+		../../../../Program\ Files/Qt/5.7/mingw53_32/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\bmp_Processor\mainwindow.cpp
 
 release/bmp_file.o: ../bmp_Processor/bmp_file.cpp ../bmp_Processor/bmp_file.h

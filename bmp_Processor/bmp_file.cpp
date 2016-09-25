@@ -83,6 +83,22 @@ void bmp_file::printData() {
     std::cout << "\n  Vector Size: " << fileData.size();
 }
 
+void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
+{
+    unsigned long inOffset = this->getStartOfBitmap();
+    unsigned long ovOffset = overlayImage.getStartOfBitmap();
+    unsigned long pixels = this->getWidth() * this->getHeight();
+    if (pixels != (overlayImage.getWidth() * overlayImage.getHeight())){
+        std::cout << "\nImages are not the same size.";
+        return;
+    }
+    for (unsigned long i = 0; i < pixels; i++){
+        if (overlayImage.getPixel(ovOffset + i) == 0x00)
+            this->setPixel(inOffset + i, 0xFF);
+    }
+    this->writeToNewFile(outFile);
+}
+
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
      this bitmap to the new colors pixel by pixel and out puts the resulting bitmap to filePath */
 void bmp_file::histogram_equalization(char* filepath) {
