@@ -15,8 +15,9 @@ class bmp_file
     bmp_file(char* filepath);                                   /**< Creates an instance of bmp_file containing the specified file */
 
     void writeToNewFile(char* filepath);                        /**< Writes the data in the bmp_file instance to the specified file */
-    void histogram_equalization(int brightness, int contrast);  /**< Histogram equalizes the image and writes it to the file specified in filepath */
+    void histogram_equalization();                              /**< Histogram equalizes the image and writes it to the Output vector */
     void imageOverlay(bmp_file overlayImage, char * outFile);   /**< Takes the overlay image as a Bmp_file object and overlays it over this bmp_file */
+    void sliderBarAdjustment(double brightness, int contrast);  /**< Takes the numerical inputs from the slider bars and edits the image */
     unsigned long getFileSize();                                /**< Extracts the file size from the bitmap header */
     unsigned long getStartOfBitmap();                           /**< Extracts the image offset from the bitmap header */
     unsigned long getWidth();                                   /**< Extracts the image width from the bitmap header */
@@ -31,7 +32,8 @@ private:
     unsigned long get32(int LSBindex);                          /**< Extracts a 32-bit unsigned long value from fileData beginning with element LSBindex */
     std::vector<unsigned char> fileData;                        /**< Contains the original bitmap data */
     std::vector<unsigned char> IO_fileOutput;                   /**< Contains the resulting bitmap data after the IO is performed */
-    std::vector<unsigned char> HE_fileOutput;                   /**< Contains the resulting bitmap data after HE, and is updated with siders*/
+    std::vector<unsigned char> HE_fileOutput;                   /**< Contains the resulting bitmap data after HE*/
+    std::vector<unsigned char> SB_fileOutput;                   /**< Contains the resulting bitmap data after Slider bars adjust contrast and brightness */
 };
 
 /// used to count the occurences of colors and then calculate the new color in Histogram Equalization

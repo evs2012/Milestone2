@@ -72,7 +72,8 @@ void peformImageOverlayOnForm()
 /// Contrast 0 - 99
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {
-   /// TODO: Ntiana make this call the HE with differing parameters
+    double Decimal_Position = ((double)position / 100.0); //slider only sends ints, range can be edited on form properties
+    /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     // see if this triggers while being dragged
 
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
@@ -81,6 +82,6 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
 /// Brightness 0 - 99
 void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
 {
-    /// TODO: Ntiana Make this call the HE with differing Parameters
+    /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 }
