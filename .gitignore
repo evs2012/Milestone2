@@ -1,5 +1,7 @@
-# Qt Autosaves
+# Qt Files
 *.autosave
+*.user
+*.user.*
 
 # Bitmaps
 *.bmp
