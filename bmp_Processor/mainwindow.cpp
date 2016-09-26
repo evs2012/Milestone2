@@ -26,7 +26,7 @@ void MainWindow::on_actionLoad_Bitmap_triggered()
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
     QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
-    ///Display image on form source image position:
+    /// TODO: Ntiana Display image on form source image position:
     // void DisplayImage (string WidgetName, bmp_image Image)
 
     /// if this and the IO image are there perform IO
@@ -34,17 +34,17 @@ void MainWindow::on_actionLoad_Bitmap_triggered()
 
 void MainWindow::DisplayImage (QString WidgetName, bmp_file Image)
 {
-    /// TODO: display the given image on the given widget
+    /// TODO: Ntiana display the given image on the given widget
 }
 
 void MainWindow::on_actionSave_Image_Overlay_Result_triggered()
 {
-    /// TODO: save the resulting IO to a file supplied with a save as file dialog
+    /// TODO: Maria -might need to wait for other parts- save the resulting IO to a file supplied with a save as file dialog
 }
 
 void MainWindow::on_actionSave_Histogram_Equalization_Result_triggered()
 {
-    /// TODO: save the resulting HE to a file supplied with a save as file dialog
+    /// TODO: Maria -might need to wait for other parts- save the resulting HE to a file supplied with a save as file dialog
     /// make sure to save the one created using the sliders
 }
 
@@ -58,7 +58,7 @@ void MainWindow::on_actionLoad_Overlay_Image_triggered()
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
     QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
-    ///Display image on form in the IO position:
+    /// TODO: Ntiana Display image on form in the IO position:
     // void DisplayImage (string WidgetName, bmp_image Image)
 
     /// if this and the Source image are there perform IO
@@ -66,18 +66,18 @@ void MainWindow::on_actionLoad_Overlay_Image_triggered()
 
 void peformImageOverlayOnForm()
 {
-    /// TODO: use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
+    /// TODO: Imran use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
 }
 
 /// Contrast 0 - 99
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {
-   /// TODO: make this call the HE with differing parameters
+   /// TODO: Ntiana make this call the HE with differing parameters
     // see if this triggers while being dragged
 }
 
 /// Brightness 0 - 99
 void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
 {
-    /// TODO: Make this call the HE with differing Parameters
+    /// TODO: Ntiana Make this call the HE with differing Parameters
 }
