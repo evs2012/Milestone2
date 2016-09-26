@@ -29,7 +29,9 @@ class bmp_file
 
 private:
     unsigned long get32(int LSBindex);                          /**< Extracts a 32-bit unsigned long value from fileData beginning with element LSBindex */
-    std::vector<unsigned char> fileData;                        /**< Contains the bitmap data */
+    std::vector<unsigned char> fileData;                        /**< Contains the original bitmap data */
+    std::vector<unsigned char> IO_fileOutput;                   /**< Contains the resulting bitmap data after the IO is performed */
+    std::vector<unsigned char> HE_fileOutput;                   /**< Contains the resulting bitmap data after HE, and is updated with siders*/
 };
 
 /// used to count the occurences of colors and then calculate the new color in Histogram Equalization
