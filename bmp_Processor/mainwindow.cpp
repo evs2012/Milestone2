@@ -74,10 +74,13 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {
    /// TODO: Ntiana make this call the HE with differing parameters
     // see if this triggers while being dragged
+
+    //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 }
 
 /// Brightness 0 - 99
 void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
 {
     /// TODO: Ntiana Make this call the HE with differing Parameters
+    //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 }
