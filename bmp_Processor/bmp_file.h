@@ -9,13 +9,13 @@
 #include <math.h>
 
 class bmp_file
-{
+{    
     bmp_file();                                                 /**< Default constructor */
     virtual ~bmp_file();                                        /**< Default destructor */
     bmp_file(char* filepath);                                   /**< Creates an instance of bmp_file containing the specified file */
 
     void writeToNewFile(char* filepath);                        /**< Writes the data in the bmp_file instance to the specified file */
-    void histogram_equalization(char* filepath);                /**< Histogram equalizes the image and writes it to the file specified in filepath */
+    void histogram_equalization(int brightness, int contrast);  /**< Histogram equalizes the image and writes it to the file specified in filepath */
     void imageOverlay(bmp_file overlayImage, char * outFile);   /**< Takes the overlay image as a Bmp_file object and overlays it over this bmp_file */
     unsigned long getFileSize();                                /**< Extracts the file size from the bitmap header */
     unsigned long getStartOfBitmap();                           /**< Extracts the image offset from the bitmap header */

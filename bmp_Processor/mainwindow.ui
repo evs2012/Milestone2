@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
-    <height>353</height>
+    <width>527</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>240</y>
+      <y>290</y>
       <width>160</width>
       <height>22</height>
      </rect>
@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>270</y>
+      <y>320</y>
       <width>160</width>
       <height>22</height>
      </rect>
@@ -50,7 +50,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>240</y>
+      <y>290</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -63,7 +63,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>270</y>
+      <y>320</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -72,17 +72,85 @@
      <string>Adjust Contrast</string>
     </property>
    </widget>
+   <widget class="QLabel" name="lbl_Original_Image">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>141</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>ORIGINAL IMAGE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_Overlay_Image">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>30</y>
+      <width>141</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>OVERLAY IMAGE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_Overlay_Result">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>30</y>
+      <width>141</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>OVERLAY RESULT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_HE_Result">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>210</y>
+      <width>141</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>HE RESULT</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
    <zorder>horizontalSlider_2</zorder>
    <zorder>horizontalSlider</zorder>
+   <zorder>lbl_Original_Image</zorder>
+   <zorder>lbl_Overlay_Image</zorder>
+   <zorder>lbl_Overlay_Result</zorder>
+   <zorder>lbl_HE_Result</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>424</width>
+     <width>527</width>
      <height>21</height>
     </rect>
    </property>
@@ -92,7 +160,9 @@
     </property>
     <addaction name="actionLoad_Bitmap"/>
     <addaction name="actionLoad_Overlay_Image"/>
-    <addaction name="actionSave_Outputs"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Image_Overlay_Result"/>
+    <addaction name="actionSave_Histogram_Equalization_Result"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -113,14 +183,19 @@
     <string>Browse for a bitmap file for the program to process.</string>
    </property>
   </action>
-  <action name="actionSave_Outputs">
-   <property name="text">
-    <string>Save Outputs...</string>
-   </property>
-  </action>
   <action name="actionLoad_Overlay_Image">
    <property name="text">
     <string>Load Overlay Image...</string>
+   </property>
+  </action>
+  <action name="actionSave_Image_Overlay_Result">
+   <property name="text">
+    <string>Save Image Overlay Result...</string>
+   </property>
+  </action>
+  <action name="actionSave_Histogram_Equalization_Result">
+   <property name="text">
+    <string>Save Histogram Equalization Result...</string>
    </property>
   </action>
  </widget>

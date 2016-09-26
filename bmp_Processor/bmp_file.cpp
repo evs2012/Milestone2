@@ -54,6 +54,7 @@ bmp_file::bmp_file(char* filepath) {
     }
     //get rid of extra byte
     fileData.pop_back();
+    ///TODO: copy this vector into the other two
 }
 
 /**< Writes the data in the bmp_file instance to the specified file */
@@ -85,6 +86,8 @@ void bmp_file::printData() {
 
 void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
 {
+    ///TODO: Make this write to IO output vector and not modify original image vector
+
     unsigned long inOffset = this->getStartOfBitmap();
     unsigned long ovOffset = overlayImage.getStartOfBitmap();
     unsigned long pixels = this->getWidth() * this->getHeight();
@@ -101,7 +104,15 @@ void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
 
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
      this bitmap to the new colors pixel by pixel and out puts the resulting bitmap to filePath */
-void bmp_file::histogram_equalization(char* filepath) {
+void bmp_file::histogram_equalization(int brightness, int contrast) {
+
+    /// TODO: Make this accept and use brightness and Contrast integer params from 0 to 99
+        // brightness "this slider sets a factor by which the brightness is multiplied"
+        // contrast "(this slider configures a transfer function that either compresses
+        //     the brightness histogram for lower contrast or stretches it for higher contrast"
+
+    /// TODO: make this write the new image into the HE output vector without modifying the original image vector
+
     ///Creating histogram counting vector
     std::vector <accumulator> histogram;
 
@@ -157,7 +168,4 @@ void bmp_file::histogram_equalization(char* filepath) {
             }
         }
     }
-
-    /// Output results to new file
-    writeToNewFile(filepath);
 }

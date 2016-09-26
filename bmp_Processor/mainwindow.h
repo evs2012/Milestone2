@@ -19,11 +19,15 @@ public:
 private slots:
     void on_actionLoad_Bitmap_triggered();
 
-    void on_actionSave_Outputs_triggered();
-
-    void on_horizontalSlider_actionTriggered(int action);
-
     void on_horizontalSlider_sliderMoved(int position);
+
+    void on_actionSave_Image_Overlay_Result_triggered();
+
+    void on_actionSave_Histogram_Equalization_Result_triggered();
+
+    void on_actionLoad_Overlay_Image_triggered();
+
+    void on_horizontalSlider_2_sliderMoved(int position);
 
 private:
     Ui::MainWindow *ui;
