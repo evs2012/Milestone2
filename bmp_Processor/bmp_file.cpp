@@ -74,6 +74,54 @@ void bmp_file::writeToNewFile(char* filepath) {
     }
 }
 
+void bmp_file::writeIOtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < IO_fileOutput.size(); i++) {
+        *buffer = IO_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
+void bmp_file::writeHEtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < HE_fileOutput.size(); i++) {
+        *buffer = HE_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
+void bmp_file::writeSBtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < SB_fileOutput.size(); i++) {
+        *buffer = SB_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
 /**< Outputs header data to the console using the std::cout stream */
 void bmp_file::printData() {
     std::cout << "\nHeader data:";
@@ -105,8 +153,6 @@ void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
      this bitmap to the new colors pixel by pixel and out puts the resulting bitmap to filePath */
 void bmp_file::histogram_equalization() {
-    /// TODO: Evan make this write the new image into the HE output vector without modifying the original image vector
-
     ///Creating histogram counting vector
     std::vector <accumulator> histogram;
 
@@ -150,13 +196,13 @@ void bmp_file::histogram_equalization() {
         histogram[i].newColor = (uint8_t)floor(histogram[i].cPercent * 255) ; ///new color = percentile of cumulative * number of colors
     }
 
-    /// write the Histogram Equalized data to this BMP_files data.
-    for(unsigned int i = getStartOfBitmap(); i < fileData.size(); i++) {
+    /// write the Histogram Equalized data to the output vector.
+    for(unsigned int i = getStartOfBitmap(); i < HE_fileOutput.size(); i++) {
         for (unsigned int j = 0; j < histogram.size(); j++)
         {
             if ((uint8_t)fileData[i] == histogram[j].color)
             {
-                fileData[i] = histogram[j].newColor;
+                HE_fileOutput[i] = histogram[j].newColor;
                 /// move to next pixel to only write new color once
                 break;
             }
@@ -164,7 +210,39 @@ void bmp_file::histogram_equalization() {
     }
 }
 
+/**< modify the image's brightness and contrast using the values given.
+    The brigness is a straight multiplier where 1 has no effect on the image, higher makes it brighter, lower to 0 makes it darker
+    The contrast gives the spread of distribution. 0 to 127 where 127 means it will spread the distribution across 0 to 255 */
+void bmp_file::sliderBarAdjustment(double brightness, int contrast) {
+    /// Brightness adjustment
+    // change the color, if it gets higher than 255 make it 255
+    for (unsigned int i = getStartOfBitmap(); i < fileData.size(); i++) {
+        if (fileData[i] * brightness > 255) {
+            SB_fileOutput[i] = 255;
+        } else {
+            SB_fileOutput[i] = fileData[i] * brightness;
+        }
+    }
 
-void bmp_file::sliderBarAdjustment(double brightness, int contrast){
-    /// TODO: Evan Make this work
+    /// Contrast adjustment
+    // find the furthest shade away from the center shade
+    int furthestDistance = 0;
+    for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
+        if (furthestDistance < abs(SB_fileOutput[i] - 128))
+        {
+            furthestDistance = abs(SB_fileOutput[i] - 128);
+        }
+    }
+
+    // scale shades so that furthest becomes contrast param away from center
+    // Equation: newShade = 128 +or- ScalingFactor * DistanceFrom128
+    double scalingFactor = contrast / furthestDistance;
+    for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
+        if(SB_fileOutput[i] < 128) {
+            SB_fileOutput[i] = 128 - scalingFactor * abs(SB_fileOutput[i] - 128);
+        } else {
+            SB_fileOutput[i] = 128 + scalingFactor * abs(SB_fileOutput[i] - 128);
+        }
+    }
+
 }

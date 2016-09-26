@@ -69,7 +69,7 @@ void peformImageOverlayOnForm()
     /// TODO: Imran use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
 }
 
-/// Contrast 0 - 99
+/// Contrast 0 - 300
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {
     double Decimal_Position = ((double)position / 100.0); //slider only sends ints, range can be edited on form properties
@@ -79,7 +79,7 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 }
 
-/// Brightness 0 - 99
+/// Brightness 0 - 127
 void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
 {
     /// TODO: Ntiana Make this call the sliderbar adjustment function with params

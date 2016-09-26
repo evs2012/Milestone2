@@ -41,6 +41,7 @@ public:
     QLabel *lbl_Overlay_Image;
     QLabel *lbl_Overlay_Result;
     QLabel *lbl_HE_Result;
+    QLabel *lbl_SB_Result;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -50,7 +51,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(527, 411);
+        MainWindow->resize(527, 655);
         actionLoad_Bitmap = new QAction(MainWindow);
         actionLoad_Bitmap->setObjectName(QStringLiteral("actionLoad_Bitmap"));
         actionLoad_Overlay_Image = new QAction(MainWindow);
@@ -63,36 +64,43 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalSlider = new QSlider(centralWidget);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setGeometry(QRect(120, 290, 160, 22));
+        horizontalSlider->setGeometry(QRect(30, 440, 160, 22));
+        horizontalSlider->setMaximum(300);
+        horizontalSlider->setSingleStep(1);
         horizontalSlider->setValue(50);
         horizontalSlider->setOrientation(Qt::Horizontal);
         horizontalSlider_2 = new QSlider(centralWidget);
         horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
-        horizontalSlider_2->setGeometry(QRect(120, 320, 160, 22));
-        horizontalSlider_2->setValue(50);
+        horizontalSlider_2->setGeometry(QRect(30, 510, 160, 22));
+        horizontalSlider_2->setMaximum(127);
+        horizontalSlider_2->setValue(127);
         horizontalSlider_2->setOrientation(Qt::Horizontal);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 290, 111, 21));
+        label->setGeometry(QRect(20, 420, 111, 16));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(20, 320, 111, 21));
+        label_2->setGeometry(QRect(20, 490, 111, 16));
         lbl_Original_Image = new QLabel(centralWidget);
         lbl_Original_Image->setObjectName(QStringLiteral("lbl_Original_Image"));
         lbl_Original_Image->setGeometry(QRect(20, 30, 141, 131));
         lbl_Original_Image->setFrameShape(QFrame::Box);
         lbl_Overlay_Image = new QLabel(centralWidget);
         lbl_Overlay_Image->setObjectName(QStringLiteral("lbl_Overlay_Image"));
-        lbl_Overlay_Image->setGeometry(QRect(190, 30, 141, 131));
+        lbl_Overlay_Image->setGeometry(QRect(280, 30, 141, 131));
         lbl_Overlay_Image->setFrameShape(QFrame::Box);
         lbl_Overlay_Result = new QLabel(centralWidget);
         lbl_Overlay_Result->setObjectName(QStringLiteral("lbl_Overlay_Result"));
-        lbl_Overlay_Result->setGeometry(QRect(360, 30, 141, 131));
+        lbl_Overlay_Result->setGeometry(QRect(20, 210, 141, 131));
         lbl_Overlay_Result->setFrameShape(QFrame::Box);
         lbl_HE_Result = new QLabel(centralWidget);
         lbl_HE_Result->setObjectName(QStringLiteral("lbl_HE_Result"));
-        lbl_HE_Result->setGeometry(QRect(360, 210, 141, 131));
+        lbl_HE_Result->setGeometry(QRect(280, 210, 141, 131));
         lbl_HE_Result->setFrameShape(QFrame::Box);
+        lbl_SB_Result = new QLabel(centralWidget);
+        lbl_SB_Result->setObjectName(QStringLiteral("lbl_SB_Result"));
+        lbl_SB_Result->setGeometry(QRect(260, 420, 141, 131));
+        lbl_SB_Result->setFrameShape(QFrame::Box);
         MainWindow->setCentralWidget(centralWidget);
         label->raise();
         label_2->raise();
@@ -102,6 +110,7 @@ public:
         lbl_Overlay_Image->raise();
         lbl_Overlay_Result->raise();
         lbl_HE_Result->raise();
+        lbl_SB_Result->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 527, 21));
@@ -143,6 +152,7 @@ public:
         lbl_Overlay_Image->setText(QApplication::translate("MainWindow", "OVERLAY IMAGE", 0));
         lbl_Overlay_Result->setText(QApplication::translate("MainWindow", "OVERLAY RESULT", 0));
         lbl_HE_Result->setText(QApplication::translate("MainWindow", "HE RESULT", 0));
+        lbl_SB_Result->setText(QApplication::translate("MainWindow", "SliderBar RESULT", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 
