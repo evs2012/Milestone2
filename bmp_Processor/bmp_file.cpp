@@ -74,6 +74,54 @@ void bmp_file::writeToNewFile(char* filepath) {
     }
 }
 
+void bmp_file::writeIOtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < IO_fileOutput.size(); i++) {
+        *buffer = IO_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
+void bmp_file::writeHEtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < HE_fileOutput.size(); i++) {
+        *buffer = HE_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
+void bmp_file::writeSBtoNewFile(char* filepath) {
+    std::ofstream outFile;
+    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
+    if (!outFile){
+        std::cout << "\nUnable to write to " << filepath << ".";
+        return;
+    } else {
+        std::cout << "\nWriting " << filepath << "...";
+    }
+    char * buffer = new char [1];
+    for (unsigned int i = 0; i < SB_fileOutput.size(); i++) {
+        *buffer = SB_fileOutput[i];
+        outFile.write(buffer,1);
+    }
+}
+
 /**< Outputs header data to the console using the std::cout stream */
 void bmp_file::printData() {
     std::cout << "\nHeader data:";
