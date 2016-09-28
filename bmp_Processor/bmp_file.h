@@ -10,6 +10,7 @@
 
 class bmp_file
 {    
+public:
     bmp_file();                                                         /**< Default constructor */
     virtual ~bmp_file();                                                /**< Default destructor */
     bmp_file(char* filepath);                                           /**< Creates an instance of bmp_file containing the specified file */

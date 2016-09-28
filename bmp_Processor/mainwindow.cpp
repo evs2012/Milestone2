@@ -29,13 +29,36 @@ void MainWindow::on_actionLoad_Bitmap_triggered()
     QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
     /// TODO: Ntiana Display image on form source image position:
     // void DisplayImage (string WidgetName, bmp_image Image)
+   DisplayImage(source,);
 
     /// if this and the IO image are there perform IO
 }
 
-void MainWindow::DisplayImage (QString WidgetName, bmp_file Image)
+void MainWindow::DisplayImage (pictureLabels WidgetName, QString ImagePath)
 {
     /// TODO: Ntiana display the given image on the given widget
+    QPixmap pix(ImagePath);
+
+
+    switch(WidgetName)
+    {
+        case source:
+            ui->lbl_Original_Image->setPixmap(pix);
+            break;
+        case io_source:
+            ui->lbl_Overlay_Image->setPixmap(pix);
+            break;
+        case io_result :
+            ui->lbl_Overlay_Result->setPixmap(pix);
+            break;
+        case he_result:
+            ui->lbl_HE_Result->setPixmap(pix);
+            break;
+        case sb_result:
+            ui->lbl_SB_Result->setPixmap(pix);
+            break;
+
+    }
 }
 
 void MainWindow::on_actionSave_Image_Overlay_Result_triggered()
@@ -85,7 +108,7 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
 }
 
 /// Brightness 0 - 127
-void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
+void MainWindow::on_horizontalSlider_2_sliderMoved(int)
 {
     /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)

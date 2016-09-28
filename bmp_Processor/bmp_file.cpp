@@ -220,7 +220,7 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast) {
         if (fileData[i] * brightness > 255) {
             SB_fileOutput[i] = 255;
         } else {
-            SB_fileOutput[i] = fileData[i] * brightness;
+            SB_fileOutput[i] = (unsigned char)(fileData[i] * brightness);
         }
     }
 
@@ -239,9 +239,9 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast) {
     double scalingFactor = contrast / furthestDistance;
     for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
         if(SB_fileOutput[i] < 128) {
-            SB_fileOutput[i] = 128 - scalingFactor * abs(SB_fileOutput[i] - 128);
+            SB_fileOutput[i] = (unsigned char)(128 - scalingFactor * abs(SB_fileOutput[i] - 128));
         } else {
-            SB_fileOutput[i] = 128 + scalingFactor * abs(SB_fileOutput[i] - 128);
+            SB_fileOutput[i] = (unsigned char) (128 + scalingFactor * abs(SB_fileOutput[i] - 128));
         }
     }
 

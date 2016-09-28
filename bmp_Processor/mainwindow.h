@@ -4,6 +4,16 @@
 #include <QMainWindow>
 #include "bmp_file.h"
 
+enum pictureLabels
+{
+    source,
+    io_source,
+    io_result,
+    he_result,
+    sb_result
+};
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -32,7 +42,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    void DisplayImage (QString WidgetName, bmp_file Image);
+    void DisplayImage (pictureLabels WidgetName, QString ImagePath);
 };
 
 #endif // MAINWINDOW_H
