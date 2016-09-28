@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPixmap>
 #include <string>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -75,6 +76,10 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
     double Decimal_Position = ((double)position / 100.0); //slider only sends ints, range can be edited on form properties
     /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     // see if this triggers while being dragged
+    bmp_file image_A;
+    image_A.sliderBarAdjustment(1,Decimal_Position);
+
+
 
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 }
