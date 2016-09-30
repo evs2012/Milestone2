@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QSlider" name="horizontalSlider">
+   <widget class="QSlider" name="brightnessSlider">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -36,7 +36,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QSlider" name="horizontalSlider_2">
+   <widget class="QSlider" name="contrastSlider">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -163,8 +163,8 @@
    </widget>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
-   <zorder>horizontalSlider_2</zorder>
-   <zorder>horizontalSlider</zorder>
+   <zorder>contrastSlider</zorder>
+   <zorder>brightnessSlider</zorder>
    <zorder>lbl_Original_Image</zorder>
    <zorder>lbl_Overlay_Image</zorder>
    <zorder>lbl_Overlay_Result</zorder>

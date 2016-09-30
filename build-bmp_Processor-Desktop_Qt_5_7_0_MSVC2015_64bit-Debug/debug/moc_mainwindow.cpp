@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[9];
-    char stringdata0[255];
+    char stringdata0[227];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,20 +32,20 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 30), // "on_actionLoad_Bitmap_triggered"
 QT_MOC_LITERAL(2, 42, 0), // ""
-QT_MOC_LITERAL(3, 43, 31), // "on_horizontalSlider_sliderMoved"
-QT_MOC_LITERAL(4, 75, 8), // "position"
-QT_MOC_LITERAL(5, 84, 44), // "on_actionSave_Image_Overlay_R..."
-QT_MOC_LITERAL(6, 129, 53), // "on_actionSave_Histogram_Equal..."
-QT_MOC_LITERAL(7, 183, 37), // "on_actionLoad_Overlay_Image_t..."
-QT_MOC_LITERAL(8, 221, 33) // "on_horizontalSlider_2_sliderM..."
+QT_MOC_LITERAL(3, 43, 19), // "on_brightnessSlider"
+QT_MOC_LITERAL(4, 63, 8), // "position"
+QT_MOC_LITERAL(5, 72, 44), // "on_actionSave_Image_Overlay_R..."
+QT_MOC_LITERAL(6, 117, 53), // "on_actionSave_Histogram_Equal..."
+QT_MOC_LITERAL(7, 171, 37), // "on_actionLoad_Overlay_Image_t..."
+QT_MOC_LITERAL(8, 209, 17) // "on_contrastSlider"
 
     },
     "MainWindow\0on_actionLoad_Bitmap_triggered\0"
-    "\0on_horizontalSlider_sliderMoved\0"
-    "position\0on_actionSave_Image_Overlay_Result_triggered\0"
+    "\0on_brightnessSlider\0position\0"
+    "on_actionSave_Image_Overlay_Result_triggered\0"
     "on_actionSave_Histogram_Equalization_Result_triggered\0"
     "on_actionLoad_Overlay_Image_triggered\0"
-    "on_horizontalSlider_2_sliderMoved"
+    "on_contrastSlider"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,11 +88,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_actionLoad_Bitmap_triggered(); break;
-        case 1: _t->on_horizontalSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->on_brightnessSlider((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->on_actionSave_Image_Overlay_Result_triggered(); break;
         case 3: _t->on_actionSave_Histogram_Equalization_Result_triggered(); break;
         case 4: _t->on_actionLoad_Overlay_Image_triggered(); break;
-        case 5: _t->on_horizontalSlider_2_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->on_contrastSlider((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
