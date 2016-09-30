@@ -106,12 +106,11 @@ void peformImageOverlayOnForm()
 }
 
 /// Contrast 0 - 300
-void MainWindow::on_contrastSlider(int /*position*/)
+void MainWindow::on_contrastSlider_valueChanged(int value)
 {
-    //double Decimal_Position = ((double)position / 100.0); //slider only sends ints, range can be edited on form properties
+    double Decimal_Position = ((double)value / 100.0); //slider only sends ints, range can be edited on form properties
     /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     // see if this triggers while being dragged
-
     //creates instance of original picture
     QByteArray temp_orig = original_image.toLatin1();
     char * outpath_orig = temp_orig.data();
@@ -120,26 +119,30 @@ void MainWindow::on_contrastSlider(int /*position*/)
     ///TRIED OUTPUTTING TO FILE DIDN'T WORK
     /// I don't think it is entering this function
 
-    //QByteArray temp = (QDir::currentPath()+"/his_test1.bmp").toLatin1();
-    //char * outpath = temp.data();
-    //image_A.sliderBarAdjustment(ui->brightnessSlider->value(),Decimal_Position,outpath);
+    QByteArray temp = (QDir::currentPath()+"/his_test1.bmp").toLatin1();
+    char * outpath = temp.data();
+    image_A.sliderBarAdjustment(ui->brightnessSlider->value(),Decimal_Position,outpath);
 
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
-   DisplayImage(sb_result,outpath_orig);
-}
+   DisplayImage(io_result,original_image);
 
+}
 /// Brightness 0 - 127
-void MainWindow::on_brightnessSlider(int position)
+void MainWindow::on_brightnessSlider_valueChanged(int value)
 {
     /// TODO: Ntiana Make this call the sliderbar adjustment function with params
     //update image with function void DisplayImage (string WidgetName, bmp_image Image)
 
     QByteArray temp_orig = original_image.toLatin1();
     char * outpath_orig = temp_orig.data();
-     bmp_file image_A(outpath_orig);
-     QByteArray temp = (QDir::currentPath()).toLatin1();
-     //QByteArray temp = (QUrl::fromLocalFile("test.bmp"));
-     char * outpath = temp.data();
-    image_A.sliderBarAdjustment(position,((ui->contrastSlider->value())/100.0),outpath);
-    DisplayImage(sb_result,outpath);
+    bmp_file image_A(outpath_orig);
+
+    QByteArray temp = (QDir::currentPath()+"\his_test1.bmp").toLatin1();
+    //QByteArray temp = (QUrl::fromLocalFile("test.bmp"));
+    char * outpath = temp.data();
+
+    //image_A.sliderBarAdjustment(value,((ui->contrastSlider->value())/100.0),outpath);
+    DisplayImage(sb_result,QString("C:\Users\ntsak\Documents\ComputerDesign\milestone1.4\bitmaps\his_test1.bmp"));
 }
+
+

@@ -30,15 +30,15 @@ public:
 private slots:
     void on_actionLoad_Bitmap_triggered();
 
-    void on_brightnessSlider(int position);
-
     void on_actionSave_Image_Overlay_Result_triggered();
 
     void on_actionSave_Histogram_Equalization_Result_triggered();
 
     void on_actionLoad_Overlay_Image_triggered();
 
-    void on_contrastSlider(int position);
+    void on_brightnessSlider_valueChanged(int value);
+
+    void on_contrastSlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
