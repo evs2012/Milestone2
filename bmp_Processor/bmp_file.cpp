@@ -174,24 +174,18 @@ void bmp_file::histogram_equalization(bmp_file & result) {
 /**< modify the image's brightness and contrast using the values given.
     The brigness is a straight multiplier where 1 has no effect on the image, higher makes it brighter, lower to 0 makes it darker
     The contrast gives the spread of distribution. 0 to 127 where 127 means it will spread the distribution across 0 to 255 */
-<<<<<<< HEAD
-void bmp_file::sliderBarAdjustment(double brightness, int contrast, char * outpath) {
-=======
 void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & result) {
     /// copy this file into the result
     result.fileData = this->fileData;
->>>>>>> refs/remotes/origin/master
+
     /// Brightness adjustment
     // change the color, if it gets higher than 255 make it 255
     for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         if (result.fileData[i] * brightness > 255) {
             result.fileData[i] = 255;
-        } else {
-<<<<<<< HEAD
-            SB_fileOutput[i] = (unsigned char)(fileData[i] * brightness);
-=======
-            result.fileData[i] = result.fileData[i] * brightness;
->>>>>>> refs/remotes/origin/master
+        }
+        else {
+            result.fileData[i] = (unsigned char)(result.fileData[i] * brightness);
         }
     }
 
@@ -208,24 +202,14 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & r
     // scale shades so that furthest becomes contrast param away from center
     // Equation: newShade = 128 +or- ScalingFactor * DistanceFrom128
     double scalingFactor = contrast / furthestDistance;
-<<<<<<< HEAD
-    for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
-        if(SB_fileOutput[i] < 128) {
-            SB_fileOutput[i] = (unsigned char)(128 - scalingFactor * abs(SB_fileOutput[i] - 128));
-        } else {
-            SB_fileOutput[i] = (unsigned char) (128 + scalingFactor * abs(SB_fileOutput[i] - 128));
-=======
+
     for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         if(result.fileData[i] < 128) {
-            result.fileData[i] = 128 - scalingFactor * abs(result.fileData[i] - 128);
+            result.fileData[i] = (unsigned char)(128 - scalingFactor * abs(result.fileData[i] - 128));
         } else {
-            result.fileData[i] = 128 + scalingFactor * abs(result.fileData[i] - 128);
->>>>>>> refs/remotes/origin/master
+            result.fileData[i] = (unsigned char)(128 + scalingFactor * abs(result.fileData[i] - 128));
         }
     }
-
-    this->writeSBtoNewFile(outpath);
-
 }
 
 unsigned char * bmp_file::getFileData()
