@@ -10,6 +10,7 @@
 
 class bmp_file
 {    
+<<<<<<< HEAD
 public:
     bmp_file();                                                                         /**< Default constructor */
     virtual ~bmp_file();                                                                /**< Default destructor */
@@ -32,13 +33,39 @@ public:
 
     unsigned char getPixel(int index);                                                  /**< Returns the pixel data located in the specified file byte */
     void setPixel(int index, unsigned char byte);                                       /**< Writes a byte to the specified pixel */
+=======
+    bmp_file();                                                         /**< Default constructor */
+    virtual ~bmp_file();                                                /**< Default destructor */
+    bmp_file(char* filepath);                                           /**< Creates an instance of bmp_file containing the specified file */
+
+    void writeToNewFile(char* filepath);                                /**< Writes the data in the bmp_file instance to the specified file */
+    void histogram_equalization(bmp_file & result);                     /**< Histogram equalizes the image puts overwrites Result with the equalized image */
+    void imageOverlay(bmp_file overlayImage, char * outFile);           /**< Takes the overlay image as a Bmp_file object and overlays it over this bmp_file */
+    void sliderBarAdjustment(double brightness, int contrast, bmp_file & result);          /**< Takes the numerical inputs from the slider bars and edits the image */
+    unsigned long getFileSize();                                        /**< Extracts the file size from the bitmap header */
+    unsigned long getStartOfBitmap();                                   /**< Extracts the image offset from the bitmap header */
+    unsigned long getWidth();                                           /**< Extracts the image width from the bitmap header */
+    unsigned long getHeight();                                          /**< Extracts the image height from the bitmap header */
+    unsigned long getNumberOfColorsInPalette();                         /**< Extracts the bits/px value from the bitmap header */
+    void printData();                                                   /**< Outputs header data to the console using the std::cout stream */
+
+    unsigned char getPixel(int index);                                  /**< Returns the pixel data located in the specified file byte */
+    void setPixel(int index, unsigned char byte);                       /**< Writes a byte to the specified pixel */
+>>>>>>> refs/remotes/origin/master
+
+    void operator=(const bmp_file &b);                                  /**< assignment opperator */
 
 private:
+<<<<<<< HEAD
     unsigned long get32(int LSBindex);                                                  /**< Extracts a 32-bit unsigned long value from fileData beginning with element LSBindex */
     std::vector<unsigned char> fileData;                                                /**< Contains the original bitmap data */
     std::vector<unsigned char> IO_fileOutput;                                           /**< Contains the resulting bitmap data after the IO is performed */
     std::vector<unsigned char> HE_fileOutput;                                           /**< Contains the resulting bitmap data after HE*/
     std::vector<unsigned char> SB_fileOutput;                                           /**< Contains the resulting bitmap data after Slider bars adjust contrast and brightness */
+=======
+    unsigned long get32(int LSBindex);                                  /**< Extracts a 32-bit unsigned long value from fileData beginning with element LSBindex */
+    std::vector<unsigned char> fileData;                                /**< Contains the original bitmap data */
+>>>>>>> refs/remotes/origin/master
 };
 
 /// used to count the occurences of colors and then calculate the new color in Histogram Equalization
