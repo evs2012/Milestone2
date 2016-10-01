@@ -248,3 +248,10 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, char * outpa
     this->writeSBtoNewFile(outpath);
 
 }
+
+unsigned char * bmp_file::getFileData()
+{
+    unsigned char *data = reinterpret_cast<unsigned char*>(this->fileData.data());
+
+    return data;
+}

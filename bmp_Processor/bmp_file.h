@@ -27,6 +27,7 @@ public:
     unsigned long getWidth();                                                           /**< Extracts the image width from the bitmap header */
     unsigned long getHeight();                                                          /**< Extracts the image height from the bitmap header */
     unsigned long getNumberOfColorsInPalette();                                         /**< Extracts the bits/px value from the bitmap header */
+    unsigned char * getFileData();
     void printData();                                                                   /**< Outputs header data to the console using the std::cout stream */
 
     unsigned char getPixel(int index);                                                  /**< Returns the pixel data located in the specified file byte */

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QImage>
 #include "bmp_file.h"
 
 enum pictureLabels
@@ -25,7 +26,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QString original_image;
 
 private slots:
     void on_actionLoad_Bitmap_triggered();
@@ -40,10 +40,11 @@ private slots:
 
     void on_contrastSlider_valueChanged(int value);
 
+
 private:
     Ui::MainWindow *ui;
 
-    void DisplayImage (pictureLabels WidgetName, QString ImagePath);
+    void DisplayImage (pictureLabels WidgetName, bmp_file picture);
 };
 
 #endif // MAINWINDOW_H
