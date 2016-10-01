@@ -174,7 +174,7 @@ void bmp_file::histogram_equalization(bmp_file & result) {
 /**< modify the image's brightness and contrast using the values given.
     The brigness is a straight multiplier where 1 has no effect on the image, higher makes it brighter, lower to 0 makes it darker
     The contrast gives the spread of distribution. 0 to 127 where 127 means it will spread the distribution across 0 to 255 */
-void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file result) {
+void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & result) {
     /// copy this file into the result
     result.fileData = this->fileData;
     /// Brightness adjustment

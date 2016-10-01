@@ -17,7 +17,7 @@ class bmp_file
     void writeToNewFile(char* filepath);                                /**< Writes the data in the bmp_file instance to the specified file */
     void histogram_equalization(bmp_file & result);                     /**< Histogram equalizes the image puts overwrites Result with the equalized image */
     void imageOverlay(bmp_file overlayImage, char * outFile);           /**< Takes the overlay image as a Bmp_file object and overlays it over this bmp_file */
-    void sliderBarAdjustment(double brightness, int contrast, bmp_file result);          /**< Takes the numerical inputs from the slider bars and edits the image */
+    void sliderBarAdjustment(double brightness, int contrast, bmp_file & result);          /**< Takes the numerical inputs from the slider bars and edits the image */
     unsigned long getFileSize();                                        /**< Extracts the file size from the bitmap header */
     unsigned long getStartOfBitmap();                                   /**< Extracts the image offset from the bitmap header */
     unsigned long getWidth();                                           /**< Extracts the image width from the bitmap header */
