@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[9];
-    char stringdata0[255];
+    char stringdata0[250];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,20 +32,20 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 30), // "on_actionLoad_Bitmap_triggered"
 QT_MOC_LITERAL(2, 42, 0), // ""
-QT_MOC_LITERAL(3, 43, 31), // "on_horizontalSlider_sliderMoved"
-QT_MOC_LITERAL(4, 75, 8), // "position"
-QT_MOC_LITERAL(5, 84, 44), // "on_actionSave_Image_Overlay_R..."
-QT_MOC_LITERAL(6, 129, 53), // "on_actionSave_Histogram_Equal..."
-QT_MOC_LITERAL(7, 183, 37), // "on_actionLoad_Overlay_Image_t..."
-QT_MOC_LITERAL(8, 221, 33) // "on_horizontalSlider_2_sliderM..."
+QT_MOC_LITERAL(3, 43, 44), // "on_actionSave_Image_Overlay_R..."
+QT_MOC_LITERAL(4, 88, 53), // "on_actionSave_Histogram_Equal..."
+QT_MOC_LITERAL(5, 142, 37), // "on_actionLoad_Overlay_Image_t..."
+QT_MOC_LITERAL(6, 180, 32), // "on_brightnessSlider_valueChanged"
+QT_MOC_LITERAL(7, 213, 5), // "value"
+QT_MOC_LITERAL(8, 219, 30) // "on_contrastSlider_valueChanged"
 
     },
     "MainWindow\0on_actionLoad_Bitmap_triggered\0"
-    "\0on_horizontalSlider_sliderMoved\0"
-    "position\0on_actionSave_Image_Overlay_Result_triggered\0"
+    "\0on_actionSave_Image_Overlay_Result_triggered\0"
     "on_actionSave_Histogram_Equalization_Result_triggered\0"
     "on_actionLoad_Overlay_Image_triggered\0"
-    "on_horizontalSlider_2_sliderMoved"
+    "on_brightnessSlider_valueChanged\0value\0"
+    "on_contrastSlider_valueChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,19 +64,19 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: name, argc, parameters, tag, flags
        1,    0,   44,    2, 0x08 /* Private */,
-       3,    1,   45,    2, 0x08 /* Private */,
-       5,    0,   48,    2, 0x08 /* Private */,
-       6,    0,   49,    2, 0x08 /* Private */,
-       7,    0,   50,    2, 0x08 /* Private */,
+       3,    0,   45,    2, 0x08 /* Private */,
+       4,    0,   46,    2, 0x08 /* Private */,
+       5,    0,   47,    2, 0x08 /* Private */,
+       6,    1,   48,    2, 0x08 /* Private */,
        8,    1,   51,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int,    7,
 
        0        // eod
 };
@@ -88,11 +88,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_actionLoad_Bitmap_triggered(); break;
-        case 1: _t->on_horizontalSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: _t->on_actionSave_Image_Overlay_Result_triggered(); break;
-        case 3: _t->on_actionSave_Histogram_Equalization_Result_triggered(); break;
-        case 4: _t->on_actionLoad_Overlay_Image_triggered(); break;
-        case 5: _t->on_horizontalSlider_2_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->on_actionSave_Image_Overlay_Result_triggered(); break;
+        case 2: _t->on_actionSave_Histogram_Equalization_Result_triggered(); break;
+        case 3: _t->on_actionLoad_Overlay_Image_triggered(); break;
+        case 4: _t->on_brightnessSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->on_contrastSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
