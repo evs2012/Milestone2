@@ -57,10 +57,19 @@ bmp_file::bmp_file(char* filepath) {
     {
         infile.read(buffer, 1);
         fileData.push_back(*buffer);
+        IO_fileOutput.push_back(*buffer);
+        HE_fileOutput.push_back(*buffer);
+        SB_fileOutput.push_back(*buffer);
+
     }
     //get rid of extra byte
     fileData.pop_back();
-    /// TODO: Maria copy this vector into the other three: IO_fileOutput, HE_fileOutput, and SB_output
+    IO_fileOutput.pop_back();
+    HE_fileOutput.pop_back();
+    SB_fileOutput.pop_back();
+
+    /// DONE: Maria copy this vector into the other three: IO_fileOutput, HE_fileOutput, and SB_output
+
 }
 
 /**< Writes the data in the bmp_file instance to the specified file */
