@@ -28,18 +28,21 @@ void MainWindow::on_actionLoad_Bitmap_triggered()
                 );
     //original_image = fileName;
 
-    QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
+    //QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
+    if(fileName != "")
+    {
+        QByteArray temp = fileName.toLatin1();
+        original_image= bmp_file(temp.data());\
 
-    QByteArray temp = fileName.toLatin1();
-    original_image= bmp_file(temp.data());\
+        DisplayImage(source,original_image);
+        /// if this and the IO image are there perform IO
+       // if(ui->lbl_Overlay_Image->pixmap() != 0 )
+       // {
+       //     original_image.imageOverlay(overlay_image,result_overlay_image);
+       // }
 
-    DisplayImage(source,original_image);
+    }
 
-    /// if this and the IO image are there perform IO
-   // if(ui->lbl_Overlay_Image->pixmap() != 0 )
-   // {
-   //     original_image.imageOverlay(overlay_image,result_overlay_image);
-   // }
 
 }
 
@@ -102,17 +105,21 @@ void MainWindow::on_actionLoad_Overlay_Image_triggered()
                 "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
-    QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
+   // QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
 
-    QByteArray temp = fileName.toLatin1();
-    overlay_image = bmp_file(temp.data());
-    DisplayImage(io_source,overlay_image);
+    if(fileName != "")
+    {
+        QByteArray temp = fileName.toLatin1();
+        overlay_image = bmp_file(temp.data());
+        DisplayImage(io_source,overlay_image);
 
-    /// if this and the IO image are there perform IO
-    //if(ui->lbl_Original_Image->pixmap() != 0 )
-   //  {
-    //    original_image.imageOverlay(overlay_image,result_overlay_image);
-   // }
+        /// if this and the IO image are there perform IO
+        //if(ui->lbl_Original_Image->pixmap() != 0 )
+       //  {
+        //    original_image.imageOverlay(overlay_image,result_overlay_image);
+       // }
+    }
+
 }
 
 void peformImageOverlayOnForm()
