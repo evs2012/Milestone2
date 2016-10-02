@@ -252,7 +252,7 @@ unsigned char * bmp_file::getFileData()
         }
     }*/
 
-    unsigned char *data = reinterpret_cast<unsigned char*>(this->fileData.data());
+    unsigned char *data = reinterpret_cast<unsigned char*>(&this->fileData[this->getStartOfBitmap()]);
 
     return data;
 }
