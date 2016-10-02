@@ -91,6 +91,8 @@ void bmp_file::printData() {
 
 void bmp_file::imageOverlay(bmp_file &overlayImage, bmp_file &result)
 {
+    /// TODO: Imran Make this write to result and not modify original image vector
+
     //unsigned long inOffset = this->getStartOfBitmap();
     //unsigned long ovOffset = overlayImage.getStartOfBitmap();
     /*unsigned long pixels = this->getWidth() * this->getHeight();

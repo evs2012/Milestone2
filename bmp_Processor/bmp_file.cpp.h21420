@@ -89,29 +89,23 @@ void bmp_file::printData() {
     std::cout << "\n  Vector Size: " << fileData.size();
 }
 
-void bmp_file::imageOverlay(bmp_file &overlayImage, bmp_file &result)
+void bmp_file::imageOverlay(bmp_file overlayImage, bmp_file &result)
 {
-    //unsigned long inOffset = this->getStartOfBitmap();
-    //unsigned long ovOffset = overlayImage.getStartOfBitmap();
-    /*unsigned long pixels = this->getWidth() * this->getHeight();
+    /// TODO: Imran Make this write to result and not modify original image vector
+
+    unsigned long inOffset = this->getStartOfBitmap();
+    unsigned long ovOffset = overlayImage.getStartOfBitmap();
+    unsigned long pixels = this->getWidth() * this->getHeight();
     if (pixels != (overlayImage.getWidth() * overlayImage.getHeight())){
         std::cout << "\nImages are not the same size.";
         return;
-    }*/
-    for (unsigned long i = overlayImage.getStartOfBitmap(); i < overlayImage.fileData.size(); ++i){
-        if (overlayImage.fileData[i] == 0x00)
-            result.fileData[i] = 0xFF;
-        //else
-            //result.fileData[i] = this->fileData[i];
     }
-
-/*    for (unsigned long i = 0; i < pixels; i++){
+    for (unsigned long i = 0; i < pixels; i++){
         if (overlayImage.getPixel(ovOffset + i) == 0x00)
-            result.fileData[inOffset + i] = 0xFF);
+            result.setPixel(inOffset + i, 0xFF);
         //else
             //result.setPixel(inOffset + i ,this->getPixel(inOffset + i));
-    }*/
-
+    }
 }
 
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites

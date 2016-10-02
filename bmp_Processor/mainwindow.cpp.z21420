@@ -158,8 +158,8 @@ void MainWindow::on_actionSave_Slider_Bar_Image_Result_triggered()
 
 void MainWindow::peformImageOverlayOnForm()
 {
-    result_overlay_image = original_image;
-    original_image.imageOverlay(overlay_image, result_overlay_image);
+    /// TODO: Imran use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
+    //original_image.imageOverlay(overlay_image, result_overlay_image);
     DisplayImage(io_result, result_overlay_image);
 }
 
