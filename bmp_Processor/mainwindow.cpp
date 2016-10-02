@@ -88,6 +88,28 @@ void MainWindow::DisplayImage (pictureLabels WidgetName, bmp_file picture)
 void MainWindow::on_actionSave_Image_Overlay_Result_triggered()
 {
     /// TODO: Maria -might need to wait for other parts- save the resulting IO to a file supplied with a save as file dialog
+
+    QPushButton *saveButton;
+    saveButton->setToolTip(tr("File Name")); /// I am getting an eror here, can someone please help me set up a button for file name
+
+    ///calling setFileMode
+    /// getOpenFileName is the information it will use to write to a file
+
+    QFileDialog dialog(this);
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Bitmap"), "C://",(tr("Images (*.png *.jpg)")));
+
+    /// display information about files and directories.
+
+    dialog.setViewMode(QFileDialog::Detail);
+
+    ///the file user selected is put in fileName.
+    /// modal blocks input to other visible windows in the same application
+
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+
 }
 
 void MainWindow::on_actionSave_Histogram_Equalization_Result_triggered()
