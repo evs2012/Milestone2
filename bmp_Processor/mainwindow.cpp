@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPixmap>
 #include <string>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,16 +26,63 @@ void MainWindow::on_actionLoad_Bitmap_triggered()
                 "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
-    QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
-    /// TODO: Ntiana Display image on form source image position:
-    // void DisplayImage (string WidgetName, bmp_image Image)
+    //original_image = fileName;
 
-    /// if this and the IO image are there perform IO
+    //QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
+    if(fileName != "")
+    {
+        QByteArray temp = fileName.toLatin1();
+        original_image= bmp_file(temp.data());\
+
+        DisplayImage(source,original_image);
+        /// if this and the IO image are there perform IO
+       // if(ui->lbl_Overlay_Image->pixmap() != 0 )
+       // {
+       //     original_image.imageOverlay(overlay_image,result_overlay_image);
+       // }
+
+    }
+
+
 }
 
-void MainWindow::DisplayImage (QString WidgetName, bmp_file Image)
+void MainWindow::DisplayImage (pictureLabels WidgetName, bmp_file picture)
 {
-    /// TODO: Ntiana display the given image on the given widget
+    QImage image = QImage(picture.getFileData(),picture.getWidth(),picture.getHeight(),QImage::Format_Grayscale8);
+    image = image.mirrored(false,true);
+    QPixmap temp = QPixmap::fromImage(image);
+
+    /// Used to make sure pictures are loaded in the correct size
+    int w_or = ui->lbl_Original_Image->width();
+    int h_or = ui->lbl_Original_Image->height();
+    int w_io = ui->lbl_Overlay_Image->width();
+    int h_io = ui->lbl_Overlay_Image->height();
+    int w_ir = ui->lbl_Overlay_Result->width();
+    int h_ir = ui->lbl_Overlay_Result->height();
+    int w_he = ui->lbl_HE_Result->width();
+    int h_he = ui->lbl_HE_Result->height();
+    int w_sb = ui->lbl_SB_Result->width();
+    int h_sb = ui->lbl_SB_Result->height();
+
+    switch(WidgetName)
+    {
+        case source:
+            ui->lbl_Original_Image->setPixmap(temp.scaled(w_or,h_or,Qt::KeepAspectRatio));
+            break;
+        case io_source:
+            ui->lbl_Overlay_Image->setPixmap(temp.scaled(w_io,h_io,Qt::KeepAspectRatio));
+            break;
+        case io_result :
+            ui->lbl_Overlay_Result->setPixmap(temp.scaled(w_ir,h_ir,Qt::KeepAspectRatio));
+            break;
+        case he_result:
+            ui->lbl_HE_Result->setPixmap(temp.scaled(w_he,h_he,Qt::KeepAspectRatio));
+            break;
+        case sb_result:
+            ui->lbl_SB_Result->setPixmap(temp.scaled(w_sb,h_sb,Qt::KeepAspectRatio));
+            break;
+
+    }
 }
 
 void MainWindow::on_actionSave_Image_Overlay_Result_triggered()
@@ -57,11 +105,21 @@ void MainWindow::on_actionLoad_Overlay_Image_triggered()
                 "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
-    QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
-    /// TODO: Ntiana Display image on form in the IO position:
-    // void DisplayImage (string WidgetName, bmp_image Image)
+   // QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
 
-    /// if this and the Source image are there perform IO
+    if(fileName != "")
+    {
+        QByteArray temp = fileName.toLatin1();
+        overlay_image = bmp_file(temp.data());
+        DisplayImage(io_source,overlay_image);
+
+        /// if this and the IO image are there perform IO
+        //if(ui->lbl_Original_Image->pixmap() != 0 )
+       //  {
+        //    original_image.imageOverlay(overlay_image,result_overlay_image);
+       // }
+    }
+
 }
 
 void peformImageOverlayOnForm()
@@ -70,18 +128,22 @@ void peformImageOverlayOnForm()
 }
 
 /// Contrast 0 - 300
-void MainWindow::on_horizontalSlider_sliderMoved(int position)
+void MainWindow::on_contrastSlider_valueChanged(int value)
 {
-    double Decimal_Position = ((double)position / 100.0); //slider only sends ints, range can be edited on form properties
-    /// TODO: Ntiana Make this call the sliderbar adjustment function with params
-    // see if this triggers while being dragged
+    double Decimal_Position = ((double)value / 100.0); //slider only sends ints, range can be edited on form properties
 
-    //update image with function void DisplayImage (string WidgetName, bmp_image Image)
+    original_image.sliderBarAdjustment(ui->brightnessSlider->value(), Decimal_Position,sliderbar_image);
+
+    DisplayImage(sb_result,sliderbar_image);
+
 }
 
 /// Brightness 0 - 127
-void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
+void MainWindow::on_brightnessSlider_valueChanged(int value)
 {
-    /// TODO: Ntiana Make this call the sliderbar adjustment function with params
-    //update image with function void DisplayImage (string WidgetName, bmp_image Image)
+    original_image.sliderBarAdjustment(value,(ui->contrastSlider->value())/100,sliderbar_image);
+
+    DisplayImage(sb_result,sliderbar_image);
 }
+
+

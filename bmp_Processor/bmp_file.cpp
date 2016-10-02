@@ -90,7 +90,7 @@ void bmp_file::printData() {
     std::cout << "\n  Vector Size: " << fileData.size();
 }
 
-void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
+void bmp_file::imageOverlay(bmp_file overlayImage, bmp_file &result)
 {
     /// TODO: Imran Make this write to IO output vector and not modify original image vector
 
@@ -105,7 +105,6 @@ void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
         if (overlayImage.getPixel(ovOffset + i) == 0x00)
             this->setPixel(inOffset + i, 0xFF);
     }
-    this->writeToNewFile(outFile);
 }
 
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
@@ -177,13 +176,15 @@ void bmp_file::histogram_equalization(bmp_file & result) {
 void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & result) {
     /// copy this file into the result
     result.fileData = this->fileData;
+
     /// Brightness adjustment
     // change the color, if it gets higher than 255 make it 255
     for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         if (result.fileData[i] * brightness > 255) {
             result.fileData[i] = 255;
-        } else {
-            result.fileData[i] = result.fileData[i] * brightness;
+        }
+        else {
+            result.fileData[i] = (unsigned char)(result.fileData[i] * brightness);
         }
     }
 
@@ -200,12 +201,50 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & r
     // scale shades so that furthest becomes contrast param away from center
     // Equation: newShade = 128 +or- ScalingFactor * DistanceFrom128
     double scalingFactor = contrast / furthestDistance;
+
     for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         if(result.fileData[i] < 128) {
-            result.fileData[i] = 128 - scalingFactor * abs(result.fileData[i] - 128);
+            result.fileData[i] = (unsigned char)(128 - scalingFactor * abs(result.fileData[i] - 128));
         } else {
-            result.fileData[i] = 128 + scalingFactor * abs(result.fileData[i] - 128);
+            result.fileData[i] = (unsigned char)(128 + scalingFactor * abs(result.fileData[i] - 128));
         }
     }
-
 }
+
+unsigned char * bmp_file::getFileData()
+{
+    //std::reverse((this->fileData.begin()),(this->fileData.end()));
+    ///size/height = number of rows
+    /// vector/howmanyrows = bytes per row (n)
+    ///
+
+    /*int num_rows = (this->fileData.size()-this->getStartOfBitmap()+1)/(this->getHeight());
+    int b_per_row = (this->fileData.size()-this->getStartOfBitmap()+1)/num_rows;
+
+    std::vector<unsigned char> newFileData =(this->fileData);
+
+    unsigned char newData[2048][2048];
+
+    for(int i=0; i<num_rows; i++)
+    {
+        for(int j=0; j< b_per_row; j++)
+        {
+            newData[i][j] = this->fileData[i+j+this->getStartOfBitmap()];
+            //newFileData[b_per_row*(num_rows-i)+j+ this->getStartOfBitmap()] = this->fileData[i*j+j+this->getStartOfBitmap()];
+        }
+
+    }
+
+    for(int i= 0; i<num_rows;i++)
+    {
+        for(int j =0; j< b_per_row; j++)
+        {
+            newFileData[i+j+this->getStartOfBitmap()]= newData[num_rows-i][j];
+        }
+    }*/
+
+    unsigned char *data = reinterpret_cast<unsigned char*>(this->fileData.data());
+
+    return data;
+}
+
