@@ -199,7 +199,7 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & r
 
     // scale shades so that furthest becomes contrast param away from center
     // Equation: newShade = 128 +or- ScalingFactor * DistanceFrom128
-    double scalingFactor = contrast / furthestDistance;
+    double scalingFactor = (double)contrast / furthestDistance;
 
     for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         if(result.fileData[i] < 128) {
