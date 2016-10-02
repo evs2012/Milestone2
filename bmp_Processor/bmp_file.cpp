@@ -9,6 +9,12 @@ bool ColorCompare(accumulator a, accumulator b)
 bmp_file::bmp_file(){/**< Default Constructor */}
 bmp_file::~bmp_file(){/**< Default Destructor */}
 
+/**< Assignment operator overload, copy image data to this */
+void bmp_file::operator=(const bmp_file &b)
+{
+    fileData = b.fileData;
+}
+
 /**< The following functions extract data from the bitmap header */
 unsigned long bmp_file::getFileSize(){return get32(2);}
 unsigned long bmp_file::getStartOfBitmap(){return get32(10);}
@@ -83,54 +89,6 @@ void bmp_file::writeToNewFile(char* filepath) {
     }
 }
 
-void bmp_file::writeIOtoNewFile(char* filepath) {
-    std::ofstream outFile;
-    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
-    if (!outFile){
-        std::cout << "\nUnable to write to " << filepath << ".";
-        return;
-    } else {
-        std::cout << "\nWriting " << filepath << "...";
-    }
-    char * buffer = new char [1];
-    for (unsigned int i = 0; i < IO_fileOutput.size(); i++) {
-        *buffer = IO_fileOutput[i];
-        outFile.write(buffer,1);
-    }
-}
-
-void bmp_file::writeHEtoNewFile(char* filepath) {
-    std::ofstream outFile;
-    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
-    if (!outFile){
-        std::cout << "\nUnable to write to " << filepath << ".";
-        return;
-    } else {
-        std::cout << "\nWriting " << filepath << "...";
-    }
-    char * buffer = new char [1];
-    for (unsigned int i = 0; i < HE_fileOutput.size(); i++) {
-        *buffer = HE_fileOutput[i];
-        outFile.write(buffer,1);
-    }
-}
-
-void bmp_file::writeSBtoNewFile(char* filepath) {
-    std::ofstream outFile;
-    outFile.open(filepath, std::ofstream::out | std::ofstream::binary);
-    if (!outFile){
-        std::cout << "\nUnable to write to " << filepath << ".";
-        return;
-    } else {
-        std::cout << "\nWriting " << filepath << "...";
-    }
-    char * buffer = new char [1];
-    for (unsigned int i = 0; i < SB_fileOutput.size(); i++) {
-        *buffer = SB_fileOutput[i];
-        outFile.write(buffer,1);
-    }
-}
-
 /**< Outputs header data to the console using the std::cout stream */
 void bmp_file::printData() {
     std::cout << "\nHeader data:";
@@ -141,7 +99,7 @@ void bmp_file::printData() {
     std::cout << "\n  Vector Size: " << fileData.size();
 }
 
-void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
+void bmp_file::imageOverlay(bmp_file overlayImage, bmp_file &result)
 {
     /// TODO: Imran Make this write to IO output vector and not modify original image vector
 
@@ -156,12 +114,14 @@ void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
         if (overlayImage.getPixel(ovOffset + i) == 0x00)
             this->setPixel(inOffset + i, 0xFF);
     }
-    this->writeToNewFile(outFile);
 }
 
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
      this bitmap to the new colors pixel by pixel and out puts the resulting bitmap to filePath */
-void bmp_file::histogram_equalization() {
+void bmp_file::histogram_equalization(bmp_file & result) {
+    /// copy this into result:
+    result.fileData = this->fileData;
+
     ///Creating histogram counting vector
     std::vector <accumulator> histogram;
 
@@ -172,10 +132,10 @@ void bmp_file::histogram_equalization() {
     }
 
     /// Populate the histogram with data from the bitmap, increment the appropriate counter for each pixel
-    for( unsigned int i = getStartOfBitmap(); i < fileData.size(); i++) {
+    for( unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         for (unsigned int j = 0; j < histogram.size(); j++)                 /// loop through file
         {
-            if ( (unsigned int)histogram[j].color == (unsigned int)fileData[i] )                        /// if we have this color increment the count
+            if ( (unsigned int)histogram[j].color == (unsigned int)result.fileData[i] )                        /// if we have this color increment the count
             {
                 histogram[j].counter++;
                 /// found, move on to next pixel
@@ -206,12 +166,12 @@ void bmp_file::histogram_equalization() {
     }
 
     /// write the Histogram Equalized data to the output vector.
-    for(unsigned int i = getStartOfBitmap(); i < HE_fileOutput.size(); i++) {
+    for(unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
         for (unsigned int j = 0; j < histogram.size(); j++)
         {
-            if ((uint8_t)fileData[i] == histogram[j].color)
+            if ((uint8_t)result.fileData[i] == histogram[j].color)
             {
-                HE_fileOutput[i] = histogram[j].newColor;
+                result.fileData[i] = histogram[j].newColor;
                 /// move to next pixel to only write new color once
                 break;
             }
@@ -222,36 +182,78 @@ void bmp_file::histogram_equalization() {
 /**< modify the image's brightness and contrast using the values given.
     The brigness is a straight multiplier where 1 has no effect on the image, higher makes it brighter, lower to 0 makes it darker
     The contrast gives the spread of distribution. 0 to 127 where 127 means it will spread the distribution across 0 to 255 */
-void bmp_file::sliderBarAdjustment(double brightness, int contrast) {
+void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & result) {
+    /// copy this file into the result
+    result.fileData = this->fileData;
+
     /// Brightness adjustment
     // change the color, if it gets higher than 255 make it 255
-    for (unsigned int i = getStartOfBitmap(); i < fileData.size(); i++) {
-        if (fileData[i] * brightness > 255) {
-            SB_fileOutput[i] = 255;
-        } else {
-            SB_fileOutput[i] = fileData[i] * brightness;
+    for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
+        if (result.fileData[i] * brightness > 255) {
+            result.fileData[i] = 255;
+        }
+        else {
+            result.fileData[i] = (unsigned char)(result.fileData[i] * brightness);
         }
     }
 
     /// Contrast adjustment
     // find the furthest shade away from the center shade
     int furthestDistance = 0;
-    for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
-        if (furthestDistance < abs(SB_fileOutput[i] - 128))
+    for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
+        if (furthestDistance < abs(result.fileData[i] - 128))
         {
-            furthestDistance = abs(SB_fileOutput[i] - 128);
+            furthestDistance = abs(result.fileData[i] - 128);
         }
     }
 
     // scale shades so that furthest becomes contrast param away from center
     // Equation: newShade = 128 +or- ScalingFactor * DistanceFrom128
     double scalingFactor = contrast / furthestDistance;
-    for (unsigned int i = getStartOfBitmap(); i < SB_fileOutput.size(); i++) {
-        if(SB_fileOutput[i] < 128) {
-            SB_fileOutput[i] = 128 - scalingFactor * abs(SB_fileOutput[i] - 128);
+
+    for (unsigned int i = getStartOfBitmap(); i < result.fileData.size(); i++) {
+        if(result.fileData[i] < 128) {
+            result.fileData[i] = (unsigned char)(128 - scalingFactor * abs(result.fileData[i] - 128));
         } else {
-            SB_fileOutput[i] = 128 + scalingFactor * abs(SB_fileOutput[i] - 128);
+            result.fileData[i] = (unsigned char)(128 + scalingFactor * abs(result.fileData[i] - 128));
         }
     }
-
 }
+
+unsigned char * bmp_file::getFileData()
+{
+    //std::reverse((this->fileData.begin()),(this->fileData.end()));
+    ///size/height = number of rows
+    /// vector/howmanyrows = bytes per row (n)
+    ///
+
+    /*int num_rows = (this->fileData.size()-this->getStartOfBitmap()+1)/(this->getHeight());
+    int b_per_row = (this->fileData.size()-this->getStartOfBitmap()+1)/num_rows;
+
+    std::vector<unsigned char> newFileData =(this->fileData);
+
+    unsigned char newData[2048][2048];
+
+    for(int i=0; i<num_rows; i++)
+    {
+        for(int j=0; j< b_per_row; j++)
+        {
+            newData[i][j] = this->fileData[i+j+this->getStartOfBitmap()];
+            //newFileData[b_per_row*(num_rows-i)+j+ this->getStartOfBitmap()] = this->fileData[i*j+j+this->getStartOfBitmap()];
+        }
+
+    }
+
+    for(int i= 0; i<num_rows;i++)
+    {
+        for(int j =0; j< b_per_row; j++)
+        {
+            newFileData[i+j+this->getStartOfBitmap()]= newData[num_rows-i][j];
+        }
+    }*/
+
+    unsigned char *data = reinterpret_cast<unsigned char*>(this->fileData.data());
+
+    return data;
+}
+
