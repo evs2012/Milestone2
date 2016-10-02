@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <stdlib.h>
 
 class bmp_file
 {

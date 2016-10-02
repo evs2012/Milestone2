@@ -161,21 +161,22 @@ void MainWindow::peformImageOverlayOnForm()
     /// TODO: Imran use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
 }
 
+///sliderBarAdjustment(double brightness, int contrast, bmp_file & result)
+
 /// Contrast 0 - 300
 void MainWindow::on_contrastSlider_valueChanged(int value)
 {
-    double Decimal_Position = ((double)value / 100.0); //slider only sends ints, range can be edited on form properties
-
-    original_image.sliderBarAdjustment(ui->brightnessSlider->value(), Decimal_Position,sliderbar_image);
+    original_image.sliderBarAdjustment(((double)(ui->contrastSlider->value())/100.0), value, sliderbar_image);
 
     DisplayImage(sb_result,sliderbar_image);
-
 }
 
 /// Brightness 0 - 127
 void MainWindow::on_brightnessSlider_valueChanged(int value)
 {
-    original_image.sliderBarAdjustment(value,(ui->contrastSlider->value())/100,sliderbar_image);
+    double Decimal_Position = ((double)value / 100.0); //slider only sends ints, range can be edited on form properties
+
+    original_image.sliderBarAdjustment(Decimal_Position, ui->brightnessSlider->value(), sliderbar_image);
 
     DisplayImage(sb_result,sliderbar_image);
 }

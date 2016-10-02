@@ -68,13 +68,16 @@ public:
         brightnessSlider = new QSlider(centralWidget);
         brightnessSlider->setObjectName(QStringLiteral("brightnessSlider"));
         brightnessSlider->setGeometry(QRect(20, 710, 160, 22));
-        brightnessSlider->setMaximum(300);
+        brightnessSlider->setToolTipDuration(-4);
+        brightnessSlider->setMinimum(50);
+        brightnessSlider->setMaximum(150);
         brightnessSlider->setSingleStep(1);
-        brightnessSlider->setValue(50);
+        brightnessSlider->setValue(100);
         brightnessSlider->setOrientation(Qt::Horizontal);
         contrastSlider = new QSlider(centralWidget);
         contrastSlider->setObjectName(QStringLiteral("contrastSlider"));
         contrastSlider->setGeometry(QRect(20, 760, 160, 22));
+        contrastSlider->setMinimum(0);
         contrastSlider->setMaximum(127);
         contrastSlider->setValue(127);
         contrastSlider->setOrientation(Qt::Horizontal);
