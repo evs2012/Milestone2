@@ -27,6 +27,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    ///Member bmp objects
+    bmp_file original_image;
+    bmp_file overlay_image;
+    bmp_file result_overlay_image;
+    bmp_file histogram_equalized_image;
+    bmp_file sliderbar_image;
+
 private slots:
     void on_actionLoad_Bitmap_triggered();
 

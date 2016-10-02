@@ -90,7 +90,7 @@ void bmp_file::printData() {
     std::cout << "\n  Vector Size: " << fileData.size();
 }
 
-void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
+void bmp_file::imageOverlay(bmp_file overlayImage, bmp_file &result)
 {
     /// TODO: Imran Make this write to IO output vector and not modify original image vector
 
@@ -105,7 +105,6 @@ void bmp_file::imageOverlay(bmp_file overlayImage, char * outFile)
         if (overlayImage.getPixel(ovOffset + i) == 0x00)
             this->setPixel(inOffset + i, 0xFF);
     }
-    this->writeToNewFile(outFile);
 }
 
 /**< Gets count of all colors used [0 to 255] and then calculates a new color for each color, overwrites
@@ -214,7 +213,38 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & r
 
 unsigned char * bmp_file::getFileData()
 {
+    //std::reverse((this->fileData.begin()),(this->fileData.end()));
+    ///size/height = number of rows
+    /// vector/howmanyrows = bytes per row (n)
+    ///
+
+    /*int num_rows = (this->fileData.size()-this->getStartOfBitmap()+1)/(this->getHeight());
+    int b_per_row = (this->fileData.size()-this->getStartOfBitmap()+1)/num_rows;
+
+    std::vector<unsigned char> newFileData =(this->fileData);
+
+    unsigned char newData[2048][2048];
+
+    for(int i=0; i<num_rows; i++)
+    {
+        for(int j=0; j< b_per_row; j++)
+        {
+            newData[i][j] = this->fileData[i+j+this->getStartOfBitmap()];
+            //newFileData[b_per_row*(num_rows-i)+j+ this->getStartOfBitmap()] = this->fileData[i*j+j+this->getStartOfBitmap()];
+        }
+
+    }
+
+    for(int i= 0; i<num_rows;i++)
+    {
+        for(int j =0; j< b_per_row; j++)
+        {
+            newFileData[i+j+this->getStartOfBitmap()]= newData[num_rows-i][j];
+        }
+    }*/
+
     unsigned char *data = reinterpret_cast<unsigned char*>(this->fileData.data());
 
     return data;
 }
+
