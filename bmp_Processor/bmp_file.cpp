@@ -57,19 +57,9 @@ bmp_file::bmp_file(char* filepath) {
     {
         infile.read(buffer, 1);
         fileData.push_back(*buffer);
-        IO_fileOutput.push_back(*buffer);
-        HE_fileOutput.push_back(*buffer);
-        SB_fileOutput.push_back(*buffer);
-
     }
     //get rid of extra byte
     fileData.pop_back();
-    IO_fileOutput.pop_back();
-    HE_fileOutput.pop_back();
-    SB_fileOutput.pop_back();
-
-    /// DONE: Maria copy this vector into the other three: IO_fileOutput, HE_fileOutput, and SB_output
-
 }
 
 /**< Writes the data in the bmp_file instance to the specified file */
@@ -101,7 +91,7 @@ void bmp_file::printData() {
 
 void bmp_file::imageOverlay(bmp_file overlayImage, bmp_file &result)
 {
-    /// TODO: Imran Make this write to IO output vector and not modify original image vector
+    /// TODO: Imran Make this write to result and not modify original image vector
 
     unsigned long inOffset = this->getStartOfBitmap();
     unsigned long ovOffset = overlayImage.getStartOfBitmap();
@@ -222,38 +212,7 @@ void bmp_file::sliderBarAdjustment(double brightness, int contrast, bmp_file & r
 
 unsigned char * bmp_file::getFileData()
 {
-    //std::reverse((this->fileData.begin()),(this->fileData.end()));
-    ///size/height = number of rows
-    /// vector/howmanyrows = bytes per row (n)
-    ///
-
-    /*int num_rows = (this->fileData.size()-this->getStartOfBitmap()+1)/(this->getHeight());
-    int b_per_row = (this->fileData.size()-this->getStartOfBitmap()+1)/num_rows;
-
-    std::vector<unsigned char> newFileData =(this->fileData);
-
-    unsigned char newData[2048][2048];
-
-    for(int i=0; i<num_rows; i++)
-    {
-        for(int j=0; j< b_per_row; j++)
-        {
-            newData[i][j] = this->fileData[i+j+this->getStartOfBitmap()];
-            //newFileData[b_per_row*(num_rows-i)+j+ this->getStartOfBitmap()] = this->fileData[i*j+j+this->getStartOfBitmap()];
-        }
-
-    }
-
-    for(int i= 0; i<num_rows;i++)
-    {
-        for(int j =0; j< b_per_row; j++)
-        {
-            newFileData[i+j+this->getStartOfBitmap()]= newData[num_rows-i][j];
-        }
-    }*/
-
     unsigned char *data = reinterpret_cast<unsigned char*>(&this->fileData[this->getStartOfBitmap()]);
-
     return data;
 }
 

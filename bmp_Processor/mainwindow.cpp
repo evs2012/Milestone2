@@ -19,31 +19,60 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionLoad_Bitmap_triggered()
 {
-    ///Open a file dialog to browse for a bitmap file.
+    /// Open a file dialog to browse for a bitmap file.
     QString fileName = QFileDialog::getOpenFileName(
                 this,
                 tr("Open Bitmap"),
                 "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
                 "Bitmap Images (*.bmp);;All Files (*.*)"
                 );
-    //original_image = fileName;
-
-    //QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
+    /// QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
     if(fileName != "")
     {
         QByteArray temp = fileName.toLatin1();
         original_image= bmp_file(temp.data());\
 
         DisplayImage(source,original_image);
+
         /// if this and the IO image are there perform IO
-       // if(ui->lbl_Overlay_Image->pixmap() != 0 )
-       // {
-       //     original_image.imageOverlay(overlay_image,result_overlay_image);
-       // }
+        if(ui->lbl_Original_Image->pixmap() != 0 )
+        {
+            peformImageOverlayOnForm();
+        }
 
+        /// perform and display Histogram equalization
+        original_image.histogram_equalization(histogram_equalized_image);
+        DisplayImage(he_result, histogram_equalized_image);
+
+        /// Show the original image on the slider bar output
+        sliderbar_image = original_image;
+        DisplayImage(sb_result, sliderbar_image);
     }
+}
 
+void MainWindow::on_actionLoad_Overlay_Image_triggered()
+{
+    /// Open a file dialog to browse for a bitmap file.
+    QString fileName = QFileDialog::getOpenFileName(
+                this,
+                tr("Open Bitmap"),
+                "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
+                "Bitmap Images (*.bmp);;All Files (*.*)"
+                );
+    /// QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
 
+    if(fileName != "")
+    {
+        QByteArray temp = fileName.toLatin1();
+        overlay_image = bmp_file(temp.data());
+        DisplayImage(io_source,overlay_image);
+
+        /// if this and the IO image are there perform IO
+        if(ui->lbl_Original_Image->pixmap() != 0 )
+        {
+            peformImageOverlayOnForm();
+        }
+    }
 }
 
 void MainWindow::DisplayImage (pictureLabels WidgetName, bmp_file picture)
@@ -87,64 +116,47 @@ void MainWindow::DisplayImage (pictureLabels WidgetName, bmp_file picture)
 
 void MainWindow::on_actionSave_Image_Overlay_Result_triggered()
 {
-    /// TODO: Maria -might need to wait for other parts- save the resulting IO to a file supplied with a save as file dialog
-
-    QPushButton *saveButton;
-    saveButton->setToolTip(tr("File Name")); /// I am getting an eror here, can someone please help me set up a button for file name
-
-    ///calling setFileMode
-    /// getOpenFileName is the information it will use to write to a file
-
+    /// Setup file dialog
     QFileDialog dialog(this);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Bitmap"), "C://",(tr("Images (*.png *.jpg)")));
-
-    /// display information about files and directories.
-
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setViewMode(QFileDialog::Detail);
-
-    ///the file user selected is put in fileName.
-    /// modal blocks input to other visible windows in the same application
-
-    QStringList fileNames;
     if (dialog.exec())
-        fileNames = dialog.selectedFiles();
-
-
+    {
+        QStringList fileName = dialog.selectedFiles();
+        result_overlay_image.writeToNewFile(fileName.first().toLatin1().data());
+    }
 }
 
 void MainWindow::on_actionSave_Histogram_Equalization_Result_triggered()
 {
-    /// TODO: Maria -might need to wait for other parts- save the resulting HE to a file supplied with a save as file dialog
-    /// make sure to save the one created using the sliders
-}
-
-void MainWindow::on_actionLoad_Overlay_Image_triggered()
-{
-    /// Open a file dialog to browse for a bitmap file.
-    QString fileName = QFileDialog::getOpenFileName(
-                this,
-                tr("Open Bitmap"),
-                "C://", /// I would prefer this to be %HOMEDRIVE% & %HOMEPATH%
-                "Bitmap Images (*.bmp);;All Files (*.*)"
-                );
-   // QMessageBox::information(this,tr("File Name"),fileName); /// Just to prove it is working
-
-    if(fileName != "")
+    /// Setup file dialog
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setViewMode(QFileDialog::Detail);
+    if (dialog.exec())
     {
-        QByteArray temp = fileName.toLatin1();
-        overlay_image = bmp_file(temp.data());
-        DisplayImage(io_source,overlay_image);
-
-        /// if this and the IO image are there perform IO
-        //if(ui->lbl_Original_Image->pixmap() != 0 )
-       //  {
-        //    original_image.imageOverlay(overlay_image,result_overlay_image);
-       // }
+        QStringList fileName = dialog.selectedFiles();
+        histogram_equalized_image.writeToNewFile(fileName.first().toLatin1().data());
     }
-
 }
 
-void peformImageOverlayOnForm()
+void MainWindow::on_actionSave_Slider_Bar_Image_Result_triggered()
+{
+    /// Setup file dialog
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setViewMode(QFileDialog::Detail);
+    if (dialog.exec())
+    {
+        QStringList fileName = dialog.selectedFiles();
+        sliderbar_image.writeToNewFile(fileName.first().toLatin1().data());
+    }
+}
+
+void MainWindow::peformImageOverlayOnForm()
 {
     /// TODO: Imran use the current bmp_file object and the overlay image bmp_file object to create and display the IO result
 }
@@ -167,5 +179,3 @@ void MainWindow::on_brightnessSlider_valueChanged(int value)
 
     DisplayImage(sb_result,sliderbar_image);
 }
-
-

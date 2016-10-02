@@ -48,10 +48,14 @@ private slots:
     void on_contrastSlider_valueChanged(int value);
 
 
+    void on_actionSave_Slider_Bar_Image_Result_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     void DisplayImage (pictureLabels WidgetName, bmp_file picture);
+
+    void peformImageOverlayOnForm();
 };
 
 #endif // MAINWINDOW_H
